@@ -2,8 +2,8 @@ import { StyleSheet } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import CalendarScreen from "./calendar/CalendarScreen";
-import ChatScreen from "./chatscreen/ChatScreen";
 import { NavigationContainer } from '@react-navigation/native';
+import ChatStack from "./chatscreen/ChatStack";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -11,17 +11,17 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Chat"
+        initialRouteName="ChatStack"
         activeColor="#e91e63"
         barStyle={{ backgroundColor: "tomato" }}
       >
         <Tab.Screen
-          name="Chat"
-          component={ChatScreen}
+          name="ChatStack"
+          component={ChatStack}
           options={{
-            tabBarLabel: "Chat",
+            tabBarLabel: "ChatStack",
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
+              <MaterialCommunityIcons name="chat-processing" color={color} size={26} />
             ),
           }}
         />
@@ -31,7 +31,7 @@ export default function App() {
           options={{
             tabBarLabel: "Calendar",
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="bell" color={color} size={26} />
+              <MaterialCommunityIcons name="calendar" color={color} size={26} />
             ),
           }}
         />
