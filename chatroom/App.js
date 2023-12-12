@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import CalendarScreen from "./calendar/CalendarScreen";
+import CalendarStack from "./calendar/CalendarStack";
 import { NavigationContainer } from '@react-navigation/native';
 import ChatStack from "./chatscreen/ChatStack";
 
@@ -27,7 +27,7 @@ export default function App() {
         />
         <Tab.Screen
           name="Calendar"
-          component={CalendarScreen}
+          component={CalendarStack}
           options={{
             tabBarLabel: "Calendar",
             tabBarIcon: ({ color }) => (
