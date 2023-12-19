@@ -10,6 +10,9 @@ import {
   StyleSheet,
 } from "react-native";
 import { database } from "../config/firebase";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { Modal } from "react-native";
+import AddPictureScreen from "./AddPictureScreen";
 
 const ChatRoomScreen = ({ route }) => {
   const { chatName } = route.params;
@@ -17,9 +20,11 @@ const ChatRoomScreen = ({ route }) => {
   const [inputKey, setInputKey] = useState(1); // Add key state
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const flatListRef = useRef();
 
+  //Todo: data modeling
   useLayoutEffect(() => {
     const collectionRef = collection(database, "mockChats");
     const q = query(collectionRef, orderBy("createdAt", "desc"));
@@ -70,8 +75,16 @@ const ChatRoomScreen = ({ route }) => {
     </View>
   );
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   return (
     <View style={styles.container}>
+      <Modal visible={isModalVisible} style={styles.modal} transparent={true}>
+        <AddPictureScreen onClose={toggleModal}
+        />
+      </Modal>
       <FlatList
         ref={flatListRef}
         data={messages}
@@ -91,7 +104,10 @@ const ChatRoomScreen = ({ route }) => {
           multiline
           onKeyPress={handleKeyPress}
         />
-        <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
+        <TouchableOpacity style={styles.addButton} onPress={toggleModal}>
+          <MaterialCommunityIcons name="image-plus" size={15} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.sendButton}  onPress={toggleModal}>
           <Text style={styles.sendButtonText}>Send</Text>
         </TouchableOpacity>
       </View>
@@ -142,10 +158,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 10,
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     paddingVertical: 8,
-    marginRight: 8,
+    marginRight: 5,
     maxHeight: 100,
+  },
+  addButton: {
+    backgroundColor: "#B2C8BA",
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginRight: 8,
+    alignItems: "center",
+    justifyContent: "center",
   },
   sendButton: {
     backgroundColor: "#064420",
@@ -158,6 +183,12 @@ const styles = StyleSheet.create({
   sendButtonText: {
     color: "#fff",
     fontWeight: "bold",
+  },
+  modal: {
+    margin: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
   },
 });
 
