@@ -1,8 +1,8 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-config/*
+config/
 # dependencies
 node_modules/
-
+apiKeys.js
 # Expo
 .expo/
 dist/
